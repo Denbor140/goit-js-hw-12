@@ -13,6 +13,7 @@ import {
 const form = document.querySelector('.form');
 const input = form.querySelector('input[name="search-text"]');
 const loadMore = document.querySelector('.btn-load-more');
+
 let page = 1;
 let query = '';
 
@@ -73,6 +74,13 @@ loadMore.addEventListener('click', async () => {
     const totalPages = Math.ceil(data.totalHits / 15);
 
     createGallery(data.hits);
+
+    const galleryItems = document.querySelector('.gallery-item');
+    const rect = galleryItems.getBoundingClientRect();
+    window.scrollBy({
+      top: rect.height * 2,
+      behavior: 'smooth',
+    });
 
     if (page < totalPages) {
       showLoadMoreButton();
